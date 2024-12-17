@@ -269,16 +269,17 @@ int main()
                         "1000100000000001"
                         "1000100000000001"
                         "1000122222200001"
-                        "1000003000100001"
-                        "1000003000166111"
-                        "1000000000100001"
-                        "1000144111100001"
+                        "1000003000900001"
+                        "1000003000866111"
+                        "1000000000800001"
+                        "1000144111800001"
                         "1000100000000001"
                         "1000000000000001"
                         "1111111111111111";
 
 
-  Screen screen;
+  Screen screen(1024, 1024);
+
   Window window1(&screen, 0, 0, 512, 512);
   Window window2(&screen, 512, 0, 512, 512);
   Player player(&screen, 2.456, 10.345, -0.6, PI / 3, 0xFFFFFFFF);
@@ -286,9 +287,21 @@ int main()
   FPV fpv(window2, &player);
   player.minimap = &minimap;
   player.fpv = &fpv;
-  screen.to_ppm();
+
   minimap.render();
   fpv.render(); 
+
+//add a player with different parameters
+  Window window3(&screen, 0, 512, 512, 512);
+  Window window4(&screen, 512, 512, 512, 512);
+  Player player2(&screen, 12.456, 8.345, 3, PI / 3, 0xFFFFFFFF);
+  LocalMiniMap minimap2(window3, matrix, 16, 16, &player2);
+  FPV fpv2(window4, &player2);
+  player2.minimap = &minimap2;
+  player2.fpv = &fpv2;
+  minimap2.render();
+  fpv2.render();
+
     screen.to_ppm("./screen.ppm");
   return 0;
 }
