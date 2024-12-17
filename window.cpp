@@ -75,7 +75,7 @@ class Window {
         return screen->buffer[global_index];
     }
 
-    void draw_rectangle(const size_t x, const size_t y, const size_t rec_w,
+    void draw_rectangle_in_window(const size_t x, const size_t y, const size_t rec_w,
                         const size_t rec_h, const uint32_t color) { //treat (o_x,o_y) as the origin
       for (size_t i = 0; i < rec_w; i++)
         for (size_t j = 0; j < rec_h; j++) {
@@ -107,7 +107,7 @@ class PureWindow : public Window{
     void render() override {
         for (size_t i = 0; i < w; i++)
             for (size_t j = 0; j < h; j++) {
-                draw_rectangle(i,j,1,1,ColorUtil::pack_colors(255,255,255));
+                draw_rectangle_in_window(i,j,1,1,ColorUtil::pack_colors(255,255,255));
             }
     }
 };
@@ -119,7 +119,7 @@ class GradientWindow : public Window{
     void render() override {
         for (size_t i = 0; i < w; i++)
             for (size_t j = 0; j < h; j++) {
-                draw_rectangle(i,j,1,1,ColorUtil::pack_colors(i%256,0,j%256));
+                draw_rectangle_in_window(i,j,1,1,ColorUtil::pack_colors(i%256,0,j%256));
             }
     }
 };
@@ -134,7 +134,7 @@ class NoiseWindow : public Window{
         std::uniform_int_distribution<> dis(0, 255);
         for (size_t i = 0; i < w; i++)
             for (size_t j = 0; j < h; j++) {
-                draw_rectangle(i,j,1,1,ColorUtil::pack_colors(dis(gen),dis(gen),dis(gen)));
+                draw_rectangle_in_window(i,j,1,1,ColorUtil::pack_colors(dis(gen),dis(gen),dis(gen)));
             }
     }
 };
